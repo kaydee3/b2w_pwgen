@@ -20,31 +20,49 @@ options = [CHARS, CHARS_UPPER, NUMS, SYM] # list of lists, listception!
 
 # Functions
 def save_list():
+    # GUI Library interface: Get contents of our output list box
     items = dpg.get_item_configuration("outputs")["items"]
+    # Open a file at path with mode Write+ (creates file if it does not exist)
     with open(p+"pwds.txt", "w+") as f:
+        # Write a string to file which is the list of items joined by a line break
         f.write("\n".join(items))
 
 def load_list():
+    # Check if the passwords file exists
     if os.path.exists(p+"pwds.txt"):
+        # Open the file with read mode
         with open(p+"pwds.txt", "r+") as f:
+            # Read file, split at each line break, and store as items variable
             items = f.read().split("\n")
-
+            # GUI interface: Update outputs list box with our items from file
             dpg.configure_item("outputs", items=items)
 
 def append_listbox(name, item):
     "Utility function, append item to a listbox."
+    # Get items from GUI list box
     items = dpg.get_item_configuration(name)["items"]
+
+    # Insert new item at index 0
     items.insert(0, item)
+
+    # Save updated list to GUI
     dpg.configure_item(name, items=items)
 
 def generate(max_len):
     "Password generator."
+
+    # Create output variable
     out = ""
 
+    # Loop while length of output is below our defined limit
     while len(out) <= max_len:
+        # Randomly select which type of character we're going to add to the output
         type_of_char = random.choice(options)
+
+        # Append a random choice from the selected type
         out += str(random.choice(type_of_char))
 
+    # Output our output!
     return out
 
 
