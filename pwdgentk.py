@@ -1,9 +1,9 @@
 # Import tkinter, our graphics library
 from tkinter import *
 from tkinter import ttk
+
 # Import Python's Random module
 import random
-from turtle import width
 
 # Constants
 chars = list("abcdefghijklmonpqrstuvqyz")
