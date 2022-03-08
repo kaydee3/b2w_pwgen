@@ -13,7 +13,6 @@ syms = list("!\"Â£$%^&*()_+-=[]{};':@',./<>?")
 
 # Variables
 options = [chars, chars_upper, nums, syms]
-max_len = 15
 
 # Defining our input and output boxes
 pwdlen_input = None
@@ -22,6 +21,7 @@ pwdlen_output = None
 # Create the core of our window
 root = Tk()
 root.title("pwdgen")
+
 # Functions
 def generate(max_len):
     out = ""
@@ -52,9 +52,11 @@ def clicked_button():
     pwdlen_output.delete(0, END)
     pwdlen_output.insert(0, pwd)
 
+# Utility function to increment or decrement the input length
 def modifier(m):
     l = pwdlen_input.get()
     new_len = 0
+
     if not l.isdigit():
         pwdlen_output.delete(0, END)
         pwdlen_output.insert(0, "Length is not a valid number.")
@@ -62,6 +64,7 @@ def modifier(m):
 
     if m == "+":
            new_len = int(l) + 1
+           
     if m == "-":
            new_len = int(l) - 1
 
