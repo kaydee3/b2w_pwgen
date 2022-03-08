@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
 import asyncio
 import websockets
+import hashlib
 
 clients = {}
 
-class B2Client:
-    def __init__(self, ws):
-        self.ws = ws
+ 
+def hash(msg):
+    return hashlib.sha256(bytes(msg, "utf-8")).hexdigest()
 
 def getClient(ws):
     return clients.get(ws.local_address[0], None)
 
 async def on_connect(ws):
     print(f"{ws.local_address} connected.")
-    clients[ws.local_address[0]] = B2Client(ws)
+    clients[ws.local_address[0]] = ws
 
 async def on_disconnect(ws, error = False):
     print(f"{ws.local_address} disconnected ({error}).")
@@ -22,7 +23,7 @@ async def on_disconnect(ws, error = False):
 
 async def on_message(ws, msg):
     print(f"recv {ws.local_address}: {msg}")
-    print(getClient(ws))
+    #print(getClient(ws))
 
 async def client_loop(websocket):
     error = False
