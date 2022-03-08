@@ -68,9 +68,9 @@ def modifier(m):
     pwdlen_input.delete(0, END)
     pwdlen_input.insert(0, str(new_len))
 
-#root.set_title()
 # Add a frame to the window, a container that we can store elements in
 frm = ttk.Frame(root, padding=10)
+
 # Place it on the grid
 frm.grid()
 
