@@ -21,7 +21,7 @@ pwdlen_output = None
 
 # Create the core of our window
 root = Tk()
-
+root.title("pwdgen")
 # Functions
 def generate(max_len):
     out = ""
@@ -52,22 +52,41 @@ def clicked_button():
     pwdlen_output.delete(0, END)
     pwdlen_output.insert(0, pwd)
 
+def modifier(m):
+    l = pwdlen_input.get()
+    new_len = 0
+    if not l.isdigit():
+        pwdlen_output.delete(0, END)
+        pwdlen_output.insert(0, "Length is not a valid number.")
+        return
+
+    if m == "+":
+           new_len = int(l) + 1
+    if m == "-":
+           new_len = int(l) - 1
+
+    pwdlen_input.delete(0, END)
+    pwdlen_input.insert(0, str(new_len))
+
 #root.set_title()
 # Add a frame to the window, a container that we can store elements in
 frm = ttk.Frame(root, padding=10)
 # Place it on the grid
 frm.grid()
 
+ttk.Label(frm, text="Length: ").grid(row=0, column=0)
 # Create a text input field
-pwdlen_input = ttk.Entry(frm, width=50)
+pwdlen_input = ttk.Entry(frm, width=30)
 pwdlen_input.insert(0, "20")
-pwdlen_input.grid(column=0,row=0)
+pwdlen_input.grid(column=1,row=0)
 
 # Create a button
 gen = ttk.Button(frm, text="Generate", command=lambda: clicked_button())
-gen.grid(column=1, row=0)
+gen.grid(column=2, row=0)
+ttk.Button(frm, text="-", command=lambda: modifier("-")).grid(column=3, row=0)
+ttk.Button(frm, text="+", command=lambda: modifier("+")).grid(column=4, row=0)
 
-pwdlen_output = ttk.Entry(frm, width=50)
-pwdlen_output.grid(column=0,row=1)
+pwdlen_output = ttk.Entry(frm, width=70)
+pwdlen_output.grid(column=0,row=1, columnspan=5)
 
 root.mainloop()
