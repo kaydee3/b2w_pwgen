@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html>
     <script type="text/javascript" src="b2c.js"></script>
-
+    <link rel="stylesheet" href="style.css">
 <body>
 
 <!--<h1>B2C</h1>-->
-<img src="https://github.com/kaydian3/b2w/raw/master/b2c/logo.png"><br>
-<input type="text" id="fname" name="fname" placeholder="Your name...">
-<input type="text" id="ftext" name="ftext" placeholder="Message..."> <button onclick="sendChat()">Send</button> <br><br>
+<img src="https://github.com/kaydian3/b2w/raw/master/b2c/logo.png"><div id="users"></div><br>
+This application exists solely as a proof of concept, and is not a complete service.<br>
+I know the layout is hideous but I am not a web designer.<br>
+Input your name in the first box, and a message in the second box, to send to all online users!<br><br>
+<input type="text" id="fname" name="fname" placeholder="Your name..." size="15">
+<input type="text" id="ftext" name="ftext" placeholder="Message..." size="70"> 
+<button onclick="sendChat()">Send</button> <br><br>
 
-<p id="results"></p>
+ <p id="results"></p>
 </body>
+<footer>
+    <p>© Team 2 - 2022 for B2W Project</p>
+  </footer> 
 </html>
 

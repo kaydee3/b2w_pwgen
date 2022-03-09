@@ -14,7 +14,7 @@ async def on_connect(ws):
     print(f"{ws.local_address} {ws.id} connected.")
     clients[str(ws.id)] = ws
     for id, client in clients.items():
-        await client.send(f"{ws.id} connected.")
+        await client.send(f"/CONNECT/{ws.id}/")
 
     
 
@@ -23,7 +23,7 @@ async def on_disconnect(ws, error = False):
     if clients.get(str(ws.id), None) != None:
         del clients[str(ws.id)] 
     for id, client in clients.items():
-        await client.send(f"{ws.id} left.")
+        await client.send(f"/DISCONNECT/{ws.id}/");
 
 async def on_message(ws, msg):
     print(f"recv {ws.id}: {msg}")
@@ -45,12 +45,12 @@ async def client_loop(websocket):
 import ssl, pathlib
 
 async def main():
-    ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+    """ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
 
-    localhost_pem = pathlib.Path(__file__).with_name("cert.pem")
-    key_pem = pathlib.Path(__file__).with_name("key.pem")
-    ssl_context.load_cert_chain(localhost_pem, key_pem)
-    async with websockets.serve(client_loop, "", 7790, ssl=ssl_context):
+    localhost_pem = pathlib.Path(__file__).with_name("snakeoil.pem")
+    key_pem = pathlib.Path(__file__).with_name("snakeoil.key")
+    ssl_context.load_cert_chain(localhost_pem, key_pem)"""
+    async with websockets.serve(client_loop, "", 7790):#, ssl=ssl_context):
         await asyncio.Future()  # run forever
 
 asyncio.run(main())
