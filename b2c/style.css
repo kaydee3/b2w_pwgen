@@ -1,0 +1,32 @@
+ 
+#results {
+    background-color: aliceblue;
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+    height: 290px;
+    overflow: auto;
+}
+
+#results:hover {
+    background-color: rgb(214, 233, 250);
+}
+
+#disclaimer {
+    font-family: "Lucida Console", "Courier New", monospace;
+    color: red;  
+}
+body {
+    background-color: lightblue;
+}
+
+#users {
+    float: right;
+}
+
+#cr {
+    font-family: "Lucida Console", "Courier New", monospace;
+    color: grey;
+}

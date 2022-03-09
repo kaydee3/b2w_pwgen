@@ -6,17 +6,19 @@
 
 <!--<h1>B2C</h1>-->
 <img src="https://github.com/kaydian3/b2w/raw/master/b2c/logo.png"><div id="users"></div><br>
-This application exists solely as a proof of concept, and is not a complete service.<br>
-I know the layout is hideous but I am not a web designer.<br>
-Input your name in the first box, and a message in the second box, to send to all online users!<br><br>
-<input type="text" id="fname" name="fname" placeholder="Your name..." size="15">
+<span id="disclaimer">Disclaimers</span>: This application exists solely as a proof of concept of a functioning server that can send and recieve messages, and is not a complete service.<br>
+I am also not a web designer, so excuse the very bad designing.<br>
+This service is <a href="https://github.com/kaydian3/b2w">open-source!</a><br>
+Input your name in the first box, click join, enter a message in the second box, then press enter to send to all online users!<br><br>
+<input type="text" id="fname" name="fname" placeholder="Your name..." size="15"> 
+<button onclick="doConnect()">Join</button>
 <input type="text" id="ftext" name="ftext" placeholder="Message..." size="70"> 
 <button onclick="sendChat()">Send</button> <br><br>
 
  <p id="results"></p>
 </body>
 <footer>
-    <p>© Team 2 - 2022 for B2W Project</p>
+    <p id="cr">© Team 2 - 2022 for B2W Project</p>
   </footer> 
 </html>
 
