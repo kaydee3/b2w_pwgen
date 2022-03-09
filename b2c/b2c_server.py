@@ -8,6 +8,7 @@ import hashlib
 
 # Defining a dictionary where we will store references to each client that connects.
 clients = {}
+history = []
 
 # Return a hash of a given text value, e.g. an encrypted string that can't be converted back to original.
 def hash(msg):
@@ -43,8 +44,20 @@ async def on_disconnect(ws, error = False):
 
 # Event for recieving a message from the client
 async def on_message(ws, msg):
+    global history
+    
     print(f"MESSAGE {ws.id}: {msg}")
 
+    if msg == "/REQUEST_HISTORY/":
+        his = '|'.join(history)
+        ln = f"/HIST/{his}/"
+        print(ln)
+        await ws.send(ln)
+
+    if msg.startswith("/MSG/"):
+        history.append(msg)
+    print("New history")
+    print(history)
     # Dispatch message to all clients except sender
     for id, client in clients.items():
         if ws != client: await client.send(msg)
@@ -79,7 +92,7 @@ async def main():
     # Parameter 1: the function to use for the client that connects
     # Parameter 2: leave blank
     # Parameter 3: the servers port
-    
+
     async with websockets.serve(client_loop, "", 7790):
         await asyncio.Future()  # run forever
 

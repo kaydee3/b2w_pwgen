@@ -6,7 +6,7 @@ let my_id = null;
 
 // Connection opened
 socket.addEventListener('open', function (event) {
-    //socket.send('Hello Server!');
+    socket.send('/REQUEST_HISTORY/');
 });
 
 function add_msg(text){
@@ -29,6 +29,7 @@ function removeItemOnce(arr, value) {
     }
     return arr;
   }
+
 
   
 // Listen for messages
@@ -57,6 +58,20 @@ socket.addEventListener('message', function (event) {
         //add_msg(`${}`)
         
         update_seen()
+    } else if(evt == "HIST"){
+        //console.log(`ALL: ${event.data}`);
+        let lns = event.data.slice(5);
+        //console.log(`lns ${lns}`)
+        let h = lns.split("|")
+        //console.log(`h ${h}`)
+        for (const c of h){
+            //console.log(c);
+            let sender = c.split("/")[2];
+            let line = c.split("/")[3];
+            add_msg(`${sender}: ${line}`);
+            if(!seen.includes(sender)) seen.push(sender);
+            update_seen();
+        }
     } else {
         let line = event.data.split("/")[2];
         console.log(evt+" "+line);
