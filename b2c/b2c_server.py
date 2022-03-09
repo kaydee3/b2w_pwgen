@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import asyncio
+import enum
 import websockets
 import hashlib
 
@@ -9,21 +10,25 @@ clients = {}
 def hash(msg):
     return hashlib.sha256(bytes(msg, "utf-8")).hexdigest()
 
-def getClient(ws):
-    return clients.get(ws.local_address[0], None)
-
 async def on_connect(ws):
-    print(f"{ws.local_address} connected.")
-    clients[ws.local_address[0]] = ws
+    print(f"{ws.local_address} {ws.id} connected.")
+    clients[str(ws.id)] = ws
+    for id, client in clients.items():
+        await client.send(f"{ws.id} connected.")
+
+    
 
 async def on_disconnect(ws, error = False):
     print(f"{ws.local_address} disconnected ({error}).")
-    if clients.get(ws.local_address[0], None) != None:
-        del clients[ws.local_address[0]] 
+    if clients.get(str(ws.id), None) != None:
+        del clients[str(ws.id)] 
+    for id, client in clients.items():
+        await client.send(f"{ws.id} left.")
 
 async def on_message(ws, msg):
-    print(f"recv {ws.local_address}: {msg}")
-    #print(getClient(ws))
+    print(f"recv {ws.id}: {msg}")
+    for id, client in clients.items():
+        await client.send(msg)
 
 async def client_loop(websocket):
     error = False

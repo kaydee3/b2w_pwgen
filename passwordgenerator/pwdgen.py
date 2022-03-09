@@ -1,4 +1,4 @@
-import random, sys
+import random
 
 # Constants
 chars = list("abcdefghijklmonpqrstuvqyz")
@@ -21,6 +21,5 @@ def generate(max_len):
     return out
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        max_len = int(sys.argv[1])
+    max_len = int(input("Input length of password > "))
     print(generate(max_len))
