@@ -28,7 +28,7 @@ async def on_disconnect(ws, error = False):
 async def on_message(ws, msg):
     print(f"recv {ws.id}: {msg}")
     for id, client in clients.items():
-        await client.send(msg)
+        if ws != client: await client.send(msg)
 
 async def client_loop(websocket):
     error = False
