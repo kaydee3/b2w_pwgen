@@ -42,9 +42,15 @@ async def client_loop(websocket):
         error = True
 
     await on_disconnect(websocket, error)
+import ssl, pathlib
 
 async def main():
-    async with websockets.serve(client_loop, "", 7790):
+    ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+
+    localhost_pem = pathlib.Path(__file__).with_name("cert.pem")
+    key_pem = pathlib.Path(__file__).with_name("key.pem")
+    ssl_context.load_cert_chain(localhost_pem, key_pem)
+    async with websockets.serve(client_loop, "", 7790, ssl=ssl_context):
         await asyncio.Future()  # run forever
 
 asyncio.run(main())
