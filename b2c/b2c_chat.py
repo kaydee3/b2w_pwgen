@@ -25,7 +25,7 @@ async def main_loop():
 # If this file is the main file, and not a library, execute main function loop
 if __name__ == "__main__":
     
-    ws = websocket.WebSocketApp("wss://82.6.205.72:7790",
+    ws = websocket.WebSocketApp("wss://localhost:7790",
                               on_open=on_open,
                               on_message=on_message,
                               on_error=on_error,

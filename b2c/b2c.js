@@ -1,5 +1,5 @@
 // Create WebSocket connection.
-const socket = new WebSocket('ws://82.6.205.72:7790');
+const socket = new WebSocket('ws://localhost:7790');
 let seen = [];
 let users = {}
 let my_id = null;
